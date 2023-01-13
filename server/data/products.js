@@ -1,6 +1,5 @@
 const products = [
   {
-    _id: '1',
     name: 'Elegante Hamsa',
     image: '/images/hamsa.jpg',
     description:
@@ -12,7 +11,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '2',
     name: 'Happy Macarons',
     image: '/images/macaron.jpg',
     description:
@@ -24,7 +22,6 @@ const products = [
     numReviews: 8,
   },
   {
-    _id: '3',
     name: 'The Bespectacled Girl',
     image: '/images/the-bespectacled-girl.jpg',
     description:
@@ -36,7 +33,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '4',
     name: 'Have A Nice Day',
     image: '/images/have-a-nice-day.jpg',
     description:
