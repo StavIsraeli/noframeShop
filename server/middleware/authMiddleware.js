@@ -22,6 +22,7 @@ const protect = AsyncHandler( async (req, res, next) => {
           }
 
     }
+    
     if(!token)
     {
         res.status(401)

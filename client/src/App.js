@@ -5,6 +5,9 @@ import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import { Routes, Route} from 'react-router-dom';
 import CartScreen from "./screens/CartScreen";
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 
 
 const App = () => {
@@ -17,6 +20,9 @@ const App = () => {
         <Route path='/' element={<HomeScreen />} />
         <Route path='/product/:id' element={<ProductScreen />}/>
         <Route path='/cart/:id?' element={<CartScreen />}/>
+        <Route path='/login' element={<LoginScreen />}/>
+        <Route path='/register' element={<RegisterScreen />}/>
+        <Route path='/profile' element={<ProfileScreen />}/>
       </Routes>
       </Container>
     </main>
