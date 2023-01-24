@@ -10,10 +10,10 @@ import { useNavigate } from 'react-router-dom';
 
 
 const RegisterScreen = () => {
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-    const [name, setName] = useState('')
     const [message, setMessage] = useState(null)
     const redirect = window.location.search ? window.location.search.split('=')[1] : '/'
     const dispatch = useDispatch()
