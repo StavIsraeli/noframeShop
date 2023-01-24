@@ -25,7 +25,6 @@ const OrderScreen = () => {
     const { success: successPay, loading: loadingPay } = useSelector( state => state.orderPay)
 
     const handleSuccessPayment = (paymentResult) => {
-        console.log(paymentResult)
         dispatch(payOrder(id, paymentResult))
     }
 
@@ -54,12 +53,15 @@ const OrderScreen = () => {
         if( successPay || !order || order._id !== id) {
             dispatch({ type: ORDER_PAY_RESET })
             dispatch(getOrderDetails(id))
+            console.log(order)
+
         } else if (!order.isPaid) {
             if(!window.paypal){
                 addPayPalScript()
             } else {
                 setSdkReady(true)
             }
+
         }
     }, [order, id, dispatch, successPay]) 
 
@@ -82,7 +84,7 @@ const OrderScreen = () => {
             <p>
                 <strong>Address: </strong>
                 {order.shippingAddress.address}, {order.shippingAddress.city}{' '}, 
-                {order.shippingAddress.postalCode},{' '}
+                {order.shippingAddress.postalCode}{' '}
                 {order.shippingAddress.country}
             </p>
             { order.isDelivered ? <Message variant='success'>Delivered on {order.DeliveredAt}</Message> :
@@ -95,7 +97,7 @@ const OrderScreen = () => {
                     <strong>Method: </strong>
                     {order.paymentMethod}
                 </p>
-                { order.isPaid ? <Message variant='success'>Paid on {order.PaidAt}</Message> :
+                { order.isPaid ? <Message variant='success'>Paid on {order.paidAt}</Message> :
                 <Message variant='danger'>Not Paid</Message> }
             </ListGroup.Item>
 

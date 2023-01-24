@@ -57,9 +57,10 @@ const addOrderItems = asyncHandler(async (req, res) => {
         status: req.body.status,
         update_time: req.body.update_time,
         email_address: req.body.payer.email_address
+
       }
 
-      const updatedOrder = await Order.save()
+      const updatedOrder = await order.save()
 
       res.json(updatedOrder)
     } else {
@@ -69,4 +70,11 @@ const addOrderItems = asyncHandler(async (req, res) => {
 
   })
 
-  export { addOrderItems, addOrderById, updateOrderToPaid }
+  const getLoggedInUserOrder = asyncHandler(async (req, res) => {
+    console.log(req.user._id)
+    const orders = await Order.find({ user: req.user._id })
+    res.json(orders)
+
+  })
+
+  export { addOrderItems, addOrderById, updateOrderToPaid, getLoggedInUserOrder }
