@@ -11,7 +11,13 @@ import {
     ORDER_PAY_FAIL,
     ORDER_LIST_MY_FAIL,
     ORDER_LIST_MY_REQUEST,
-    ORDER_LIST_MY_SUCCESS
+    ORDER_LIST_MY_SUCCESS,
+    ORDER_LIST_REQUEST,
+    ORDER_LIST_SUCCESS,
+    ORDER_LIST_FAIL,
+    ORDER_DELIVER_REQUEST,
+    ORDER_DELIVER_SUCCESS,
+    ORDER_DELIVER_FAIL
     } from '../constants/orderConstants'
 
   const API_URL='http://localhost:8000/api/orders'
@@ -100,6 +106,33 @@ import {
     }
   }
 
+  export const deliverOrder = (id) => async (dispatch, getState) =>{
+    try {
+        dispatch({type: ORDER_DELIVER_REQUEST})
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = { 
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`
+          }
+        }
+        const { data } = await axios.put(`${API_URL}/${id}/deliver`,{}, config)
+
+        dispatch({type: ORDER_DELIVER_SUCCESS, payload: data })
+
+    } catch (error) {
+      const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+      dispatch({
+        type: ORDER_DELIVER_FAIL,
+        payload: message,
+      })
+    }
+  }
+
   export const getMyOrderList = () => async (dispatch, getState) =>{
     try {
         dispatch({type: ORDER_LIST_MY_REQUEST})
@@ -126,4 +159,28 @@ import {
         payload: message,
       })
     }
+  }
+
+  export const getOrderList = () => async (dispatch, getState) =>{
+    try {
+        dispatch({type: ORDER_LIST_REQUEST})
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = { 
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`
+          }
+        }
+
+        const {data} = await axios.get(API_URL, config)
+
+        dispatch({type: ORDER_LIST_SUCCESS, payload: data})
+    } catch (error) {
+        dispatch({
+            type: ORDER_LIST_FAIL, 
+            payload: error.response && error.response.data.message ? 
+            error.response.data.message : error.message})
+    }
+
   }
