@@ -4,6 +4,7 @@ import logo from '../NOFRAME.png' ;
 import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../redux/actions/userActions';
+import SearchBox from './SearchBox'
  
 
 
@@ -32,6 +33,7 @@ const Header = () => {
             Noframe Shop
         </Navbar.Brand>
       </LinkContainer>
+      <SearchBox/>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
         <Nav>

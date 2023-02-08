@@ -7,8 +7,7 @@ import Message from '../components/Message'
 import  Loader from '../components/Loader'
 import { Link } from 'react-router-dom'
 import { getOrderDetails, payOrder, deliverOrder } from '../redux/actions/orderActions'
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../redux/constants/orderConstants'
 
 

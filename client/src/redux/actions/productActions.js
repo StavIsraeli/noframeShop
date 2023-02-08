@@ -14,16 +14,22 @@ import {
     PRODUCT_CREATE_FAIL,
     PRODUCT_UPDATE_REQUEST,
     PRODUCT_UPDATE_SUCCESS,
-    PRODUCT_UPDATE_FAIL
+    PRODUCT_UPDATE_FAIL,
+    PRODUCT_CREATE_REVIEW_REQUEST,
+    PRODUCT_CREATE_REVIEW_SUCCESS,
+    PRODUCT_CREATE_REVIEW_FAIL,
+    PRODUCT_TOP_REQUEST,
+    PRODUCT_TOP_SUCCESS,
+    PRODUCT_TOP_FAIL
   } from '../constants/productConstants'
 
   const API_URL='http://localhost:8000/api/products'
 
-  export const getProductList = () => async (dispatch) =>{
+  export const getProductList = (keyword = '', pageNumber = '') => async (dispatch) =>{
     try {
         dispatch({type: PRODUCT_LIST_REQUEST})
 
-        const {data} = await axios.get(API_URL)
+        const { data } = await axios.get(`${API_URL}?keyword=${keyword}&pageNumber=${pageNumber}`)
 
         dispatch({type: PRODUCT_LIST_SUCCESS, payload: data})
     } catch (error) {
@@ -134,4 +140,48 @@ import {
         payload: message,
       })
     }
+  }
+
+  export const createProductReview = (productId, review) => async (dispatch, getState) =>{
+    try {
+        dispatch({type: PRODUCT_CREATE_REVIEW_REQUEST})
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = { 
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userInfo.token}`
+          }
+        }
+        await axios.post(`${API_URL}/${productId}/reviews`, review, config)
+
+        dispatch({type: PRODUCT_CREATE_REVIEW_SUCCESS})
+
+    } catch (error) {
+      const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_FAIL,
+        payload: message,
+      })
+    }
+  }
+
+  export const getTopProducts = () => async (dispatch) =>{
+    try {
+        dispatch({type: PRODUCT_TOP_REQUEST})
+
+        const { data } = await axios.get(`${API_URL}/top`)
+
+        dispatch({type: PRODUCT_TOP_SUCCESS, payload: data})
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_TOP_FAIL, 
+            payload: error.response && error.response.data.message ? 
+            error.response.data.message : error.message})
+    }
+
   }
