@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Meta from '../components/Meta'
 import axios from 'axios'
 import { PayPalButton } from 'react-paypal-button-v2'
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
@@ -79,7 +80,7 @@ const OrderScreen = () => {
   return loading ? <Loader/> : error ? <Message variant='danger'>{error}</Message> :
   <>
   <h1> Order {order._id} </h1>
-
+  <Meta title={`Noframe | Your Order`} />
   <Row>
     <Col md={8}>
         <ListGroup variant='flush'>

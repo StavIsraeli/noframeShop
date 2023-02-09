@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import Meta from '../components/Meta'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
 import Product from '../components/Product'
@@ -24,12 +25,14 @@ const HomeScreen = () => {
 
   return (
     <>
-    {!keyword && <ProductCarousel/>}
+     <Meta title={'Noframe Shop | Home'} />
+    {!keyword ? 
+    <ProductCarousel/> : 
+    <Link className='btn btn-light my-3' to={'/'}>Return To All Products</Link>}
     <br/>
     <h1>Our products</h1>
-    {keyword && <Link className='btn btn-light my-3' to={'/'}>Return To All Products</Link>}
     {loading ? 
-    (<Loader/> ): error? 
+    (<Loader/> ) : error? 
     (<Message variant='danger'>{error}</Message>) :
     (<>
     <Row>

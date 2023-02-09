@@ -3,7 +3,6 @@ import express from 'express'
 import multer from 'multer'
 
 const router = express.Router()
-const __dirname = path.resolve()
 
 
 const storage = multer.diskStorage({

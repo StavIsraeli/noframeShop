@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Meta from '../components/Meta'
 import { Form, Button, Row, Col, Table } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -54,52 +55,52 @@ const ProfileScreen = () => {
     }
 
     return (
-    <Row>
+    <><Meta title={`Noframe | ${user.name}`} /><Row>
         <Col md={3} mb={6}>
-        <h1>User Profile</h1>
-        {error ? <Message variant='danger'>{error}</Message> : null}
-        {message && <Message variant='danger'>{message}</Message>}
-        {success && <Message variant='success'>Profile Updated</Message>}
-        {loading && <Loader />}
-        <Form onSubmit={handleSumbmit} >
+          <h1>User Profile</h1>
+          {error ? <Message variant='danger'>{error}</Message> : null}
+          {message && <Message variant='danger'>{message}</Message>}
+          {success && <Message variant='success'>Profile Updated</Message>}
+          {loading && <Loader />}
+          <Form onSubmit={handleSumbmit}>
             <Form.Group className="mb-3" controlId='name'>
-                <Form.Label>Name</Form.Label>
-                <Form.Control type='name' placeholder='Enter name' value={name} onChange={(e) => setName(e.target.value)}></Form.Control>
+              <Form.Label>Name</Form.Label>
+              <Form.Control type='name' placeholder='Enter name' value={name} onChange={(e) => setName(e.target.value)}></Form.Control>
             </Form.Group>
             <Form.Group className="mb-3" controlId='email'>
-                <Form.Label>Email Address</Form.Label>
-                <Form.Control type='email' placeholder='Enter email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
+              <Form.Label>Email Address</Form.Label>
+              <Form.Control type='email' placeholder='Enter email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
             </Form.Group>
             <Form.Group className="mb-3" controlId='password'>
-                <Form.Label>Password</Form.Label>
-                <Form.Control type='password' placeholder='Enter password' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
+              <Form.Label>Password</Form.Label>
+              <Form.Control type='password' placeholder='Enter password' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
             </Form.Group>
             <Form.Group className="mb-3" controlId='confirmPassword'>
-                <Form.Label>Confirm Password</Form.Label>
-                <Form.Control type='password' placeholder='Confirm password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></Form.Control>
+              <Form.Label>Confirm Password</Form.Label>
+              <Form.Control type='password' placeholder='Confirm password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></Form.Control>
             </Form.Group>
 
             <Button type='submit' variant='primary'>Update</Button>
-        </Form>
+          </Form>
         </Col>
 
         <Col md={9}>
-            <h2>My Orders</h2>
-            {loadingOrders ? <Loader /> : errorOrders ? <Message variant='danger'>{errorOrders}</Message> :
+          <h2>My Orders</h2>
+          {loadingOrders ? <Loader /> : errorOrders ? <Message variant='danger'>{errorOrders}</Message> :
             <Table striped bordered hover responsive className='table-sm'>
-            <thead>
+              <thead>
                 <tr>
-                <th>ID</th>
-                <th>DATE</th>
-                <th>TOTAL</th>
-                <th>PAID</th>
-                <th>DELIVERED</th>
-                <th></th>
+                  <th>ID</th>
+                  <th>DATE</th>
+                  <th>TOTAL</th>
+                  <th>PAID</th>
+                  <th>DELIVERED</th>
+                  <th></th>
                 </tr>
-            </thead>
-            <tbody>
-                {orders.map( order => (
-                    <tr key={order._id}>
+              </thead>
+              <tbody>
+                {orders.map(order => (
+                  <tr key={order._id}>
                     <td>{order._id}</td>
                     <td>{order.createdAt.substring(0, 10)}</td>
                     <td>{order.totalPrice}</td>
@@ -126,11 +127,11 @@ const ProfileScreen = () => {
                     </td>
                   </tr>
                 ))}
-            </tbody>
+              </tbody>
             </Table>}
         </Col>
 
-    </Row>
+      </Row></>
   )
 }
 
